@@ -1,5 +1,7 @@
+import Category from "@/components/category/category";
+
 const App = () => {
-  return <div className="App">123</div>;
+  return <Category />;
 };
 
 export default App;
