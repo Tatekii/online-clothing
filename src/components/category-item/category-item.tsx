@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
+import { CateItem } from "@/types";
 
-const CategoryItem = ({ category }: any) => {
+interface CategoryItemProps {
+  category: CateItem;
+}
+const CategoryItem = ({ category }: CategoryItemProps) => {
   const { imageUrl, title } = category;
 
   const CategoryItemContainer = styled.div`
@@ -11,7 +15,7 @@ const CategoryItem = ({ category }: any) => {
     align-items: center;
     justify-content: center;
     border: 0.1rem solid black;
-    margin: 0 0.75rem 1.5rem;
+    /* margin: 0 0.75rem 1.5rem; */
     overflow: hidden;
     &:hover {
       cursor: pointer;
@@ -26,12 +30,12 @@ const CategoryItem = ({ category }: any) => {
     &.large {
       height: 38rem;
     }
-    &:first-of-type {
-      margin-right: 7.5px;
+    /* &:first-child {
+      margin-right: .75rem;
     }
-    &:last-of-type {
-      margin-left: 7.5px;
-    }
+    &:last-child {
+      margin-left: .75rem;
+    } */
   `;
 
   const BackgroundImage = styled.div`

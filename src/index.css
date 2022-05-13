@@ -5,3 +5,12 @@ html {
 body {
   font-family: "Nunito", sans-serif;
 }
+
+a {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  color: #000;
+}
