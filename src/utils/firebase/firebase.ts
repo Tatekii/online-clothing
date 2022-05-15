@@ -5,11 +5,10 @@ import {
   signInWithPopup,
   signInWithRedirect,
   User,
-  UserCredential,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
-import { UserInfo } from "os";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC3roePTbw0On56rzS8HKZwoUn10_EWbl8",
@@ -22,41 +21,58 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
+/** auth client */
 export const auth = getAuth();
 
 /** 使用谷歌弹窗登录 */
-export const signInWithGooglePopup = async () =>
-  await signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+
+/** 跳转到谷歌登录 */
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
 /** 创建用户数据 */
-export const createUserDocument = async (userAuth: User) => {
+export const createUserDocument = async (userAuth: User, extraData = {}) => {
+  if (!userAuth) return;
   // ref
   const userDocRef = doc(db, "users", userAuth.uid);
   // snapshot
   const userSnapshot = await getDoc(userDocRef);
-  // 以及存在
+  // 已经存在
   if (userSnapshot.exists()) {
     return userDocRef;
   }
 
   const { displayName, email } = userAuth;
   const createAt = new Date();
-
+  // 存储
   try {
     await setDoc(userDocRef, {
       displayName,
       email,
       createAt,
+      ...extraData,
     });
   } catch (err) {
     console.error(err);
   }
+  return userDocRef;
+};
+
+/** 使用邮箱创建用户 */
+export const createAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

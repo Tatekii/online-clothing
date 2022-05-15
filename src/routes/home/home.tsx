@@ -1,4 +1,5 @@
 import Category from "@/components/category/category";
+
 const Home = () => {
   const categories = [
     {

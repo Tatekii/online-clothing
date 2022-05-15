@@ -6,11 +6,12 @@ interface CategoryProps {
 }
 const Category = ({ categories }: CategoryProps) => {
   const CategoryContainer = styled.div`
+    padding: 0 15px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 1.25rem;
+    gap: 12.5px;
   `;
 
   return (

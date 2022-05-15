@@ -4,12 +4,11 @@ import { ReactComponent as CrwnLogo } from "@/assets/crown.svg";
 
 const Navigation = () => {
   const Navigator = styled.div`
-    height: 7rem;
+    height: 70px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* margin-bottom: 2.5rem; */
   `;
 
   const NavContainer = styled.div`
@@ -21,15 +20,13 @@ const Navigation = () => {
   `;
 
   const NavLink = styled(Link)`
-    font-size: 2rem;
-    padding: 1rem 1.5rem;
+    padding: 10px 15px;
     cursor: pointer;
   `;
 
   const LogoContainer = styled(Link)`
-    /* height: 100%; */
-    width: 7rem;
-    padding: 0 0 0 1.5rem;
+    width: 70px;
+    padding: 0 0 0 15px;
   `;
 
   return (
