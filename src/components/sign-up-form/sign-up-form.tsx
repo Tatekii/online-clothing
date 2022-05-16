@@ -1,6 +1,5 @@
 import { Formik, Form, FormikProps, FormikHelpers } from "formik";
-import { Button } from "@chakra-ui/react";
-import styled from "@emotion/styled";
+import { Button, Text } from "@chakra-ui/react";
 import * as Yup from "yup";
 import FormTextInput from "../form-text-input/form-text-input";
 import {
@@ -8,23 +7,13 @@ import {
   createUserDocument,
 } from "@/utils/firebase/firebase";
 
+interface SignUpParams {
+  username: string;
+  email: string;
+  password: string;
+  password2: string;
+}
 export default function SignUpForm() {
-  const SignUpContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 380px;
-
-    h2 {
-      margin: 10px 0;
-    }
-  `;
-
-  interface SignUpParams {
-    username: string;
-    email: string;
-    password: string;
-    password2: string;
-  }
   const initialValues: SignUpParams = {
     username: "",
     email: "",
@@ -60,9 +49,9 @@ export default function SignUpForm() {
   };
 
   return (
-    <SignUpContainer>
-      <h2>Don't have an account?</h2>
-      <span>Sign up with your email and password</span>
+    <>
+      <Text fontSize="2xl">Don't have an account?</Text>
+      <Text as="i">Sign up with your email and password</Text>
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object({
@@ -80,7 +69,7 @@ export default function SignUpForm() {
         onSubmit={(values, actions) => handleSignUp(values, actions)}
       >
         {(props: FormikProps<SignUpParams>) => (
-          <Form>
+          <Form style={{ marginTop: "20px" }}>
             <FormTextInput
               label="User Name"
               name="username"
@@ -103,7 +92,8 @@ export default function SignUpForm() {
             ></FormTextInput>
             <Button
               type="submit"
-              colorScheme="purple"
+              // borderRadius={0}
+              w={"100%"}
               mt={4}
               isLoading={props.isSubmitting}
               loadingText={"处理中"}
@@ -113,6 +103,6 @@ export default function SignUpForm() {
           </Form>
         )}
       </Formik>
-    </SignUpContainer>
+    </>
   );
 }
