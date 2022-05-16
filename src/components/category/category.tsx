@@ -6,7 +6,6 @@ interface CategoryProps {
 }
 const Category = ({ categories }: CategoryProps) => {
   const CategoryContainer = styled.div`
-    padding: 0 15px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;

@@ -1,19 +1,12 @@
 import { SignOutAuth } from "@/utils/firebase/firebase";
-import { Button } from "@chakra-ui/react";
-import { BiExit } from "react-icons/bi";
+import { Text } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 const SignOutButton = () => {
-  const handleSignOut = () => {
-    SignOutAuth();
-  };
+  const SignOutContainer = styled(Text)`
+    cursor: pointer;
+  `;
   return (
-    <Button
-      rightIcon={<BiExit />}
-      // colorScheme="teal"
-      onClick={() => handleSignOut()}
-      variant="fill"
-    >
-      Sign Ou
-    </Button>
+    <SignOutContainer onClick={() => SignOutAuth()}>SIGN OUT</SignOutContainer>
   );
 };
 export default SignOutButton;

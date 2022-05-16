@@ -7,30 +7,6 @@ interface CategoryItemProps {
 const CategoryItem = ({ category }: CategoryItemProps) => {
   const { imageUrl, title } = category;
 
-  const CategoryItemContainer = styled.div`
-    min-width: 30%;
-    height: 240px;
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid black;
-    overflow: hidden;
-    &:hover {
-      cursor: pointer;
-      & .background-image {
-        transform: scale(1.1);
-        transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-      }
-      & .category-body-container {
-        opacity: 0.9;
-      }
-    }
-    &.large {
-      height: 380px;
-    }
-  `;
-
   const BackgroundImage = styled.div`
     width: 100%;
     height: 100%;
@@ -58,6 +34,31 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
     p {
       font-weight: lighter;
       font-size: 16px;
+    }
+  `;
+
+  const CategoryItemContainer = styled.div`
+    min-width: 30%;
+    height: 240px;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    overflow: hidden;
+    &:hover {
+      cursor: pointer;
+      /* 使用@emotion/babel-plugin */
+      ${BackgroundImage} {
+        transform: scale(1.1);
+        transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      }
+      ${ItemBody} {
+        opacity: 0.9;
+      }
+    }
+    .large {
+      height: 380px;
     }
   `;
 

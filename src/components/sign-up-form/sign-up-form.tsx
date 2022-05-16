@@ -6,7 +6,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "@/utils/firebase/firebase";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "@/context/auth.context";
 
 interface SignUpParams {
   displayName: string;

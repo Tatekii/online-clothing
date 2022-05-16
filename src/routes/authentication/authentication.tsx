@@ -11,7 +11,7 @@ import {
 
 const Authentication = () => {
   return (
-    <Container maxW="380px" minH="calc( 100vh - 70px )" background="white">
+    <Container maxW="380px">
       <Tabs isFitted isLazy>
         <TabList mb="1em">
           <Tab>Sign In</Tab>

@@ -8,4 +8,8 @@ module.exports = {
     },
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
+
+  babel: {
+    plugins: ["@emotion"],
+  },
 };

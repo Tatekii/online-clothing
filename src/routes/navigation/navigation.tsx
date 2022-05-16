@@ -1,13 +1,17 @@
 import { Outlet, Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { ReactComponent as CrwnLogo } from "@/assets/crown.svg";
-import { useAuth } from "@/context/auth";
+import { useAuth } from "@/context/auth.context";
 import SignOutButton from "@/components/sign-out-button/sign-out-button";
+import CartIcon from "@/components/cart-icon/cart-icon";
+import CartDropdown from "@/components/cart-dropdown/cart-dropdown";
+import { useCart } from "@/context/cart.context";
 
 const Navigation = () => {
   const Navigator = styled.div`
     height: 70px;
     width: 100%;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -31,7 +35,13 @@ const Navigation = () => {
     padding: 0 0 0 15px;
   `;
 
+  const RouterView = styled.div`
+    min-height: calc(100vh - 70px);
+    padding: 0 40px;
+  `;
+
   const { user } = useAuth();
+  const { isCartOpen } = useCart();
   return (
     <>
       <Navigator>
@@ -40,10 +50,17 @@ const Navigation = () => {
         </LogoContainer>
         <NavContainer>
           <NavLink to="/shop">SHOP</NavLink>
-          {user ? <NavLink to="/sign-in">SIGN IN</NavLink> : <SignOutButton />}
+          {!user ? <NavLink to="/auth">SIGN IN</NavLink> : <SignOutButton />}
+          <CartIcon />
         </NavContainer>
+        {isCartOpen && <CartDropdown />}
       </Navigator>
-      <Outlet />
+
+      {/* router view */}
+
+      <RouterView className="router_view">
+        <Outlet />
+      </RouterView>
     </>
   );
 };

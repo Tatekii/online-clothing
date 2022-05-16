@@ -1,9 +1,12 @@
-import { User } from "firebase/auth";
-
 export interface CateItem {
   id: number;
   title: string;
   imageUrl: string;
 }
 
-export type UserData = User | null;
+export interface ProductItem {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
