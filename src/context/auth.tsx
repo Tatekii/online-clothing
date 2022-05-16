@@ -16,6 +16,7 @@ import {
 export const AuthContext = createContext<
   | {
       user: User | null;
+      login: (user: User) => void;
       logout: () => void;
     }
   | undefined
@@ -24,7 +25,7 @@ export const AuthContext = createContext<
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // const login = (userData: User) => setUser(userData);
+  const login = (user: User) => setUser(user);
 
   const logout = () => {
     SignOutAuth(); // google auth 登出
@@ -45,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, logout }}
+      value={{ user, login, logout }}
       children={children}
     ></AuthContext.Provider>
   );

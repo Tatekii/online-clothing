@@ -6,6 +6,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "@/utils/firebase/firebase";
+import { useAuth } from "@/context/auth";
 
 interface SignUpParams {
   displayName: string;
@@ -21,6 +22,7 @@ export default function SignUpForm() {
     password2: "",
   };
 
+  const { login } = useAuth();
   const handleSignUp = async (
     values: SignUpParams,
     actions: FormikHelpers<SignUpParams>
@@ -28,6 +30,9 @@ export default function SignUpForm() {
     const { displayName, email, password } = values;
 
     try {
+      /**
+       * 使用邮箱密码注册时手动注册用户
+       *  */
       const { user } = (await createAuthUserWithEmailAndPassword(
         email,
         password
@@ -36,6 +41,8 @@ export default function SignUpForm() {
       await createUserDocumentFromAuth(user, { displayName });
       // reset form
       actions.resetForm();
+      // context
+      login(user);
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");

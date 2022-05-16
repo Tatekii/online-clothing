@@ -35,13 +35,13 @@ googleProvider.setCustomParameters({
 /** auth client */
 export const auth = getAuth();
 
-/** 使用谷歌弹窗登录 */
+/** 谷歌弹窗登录 */
 export const signInWithGooglePopup = () =>
   signInWithPopup(auth, googleProvider);
 
 /** 跳转到谷歌登录 */
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+// export const signInWithGoogleRedirect = () =>
+//   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
