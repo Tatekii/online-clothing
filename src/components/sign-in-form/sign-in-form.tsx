@@ -3,6 +3,8 @@ import { Form, Formik, FormikHelpers, FormikProps } from "formik";
 import * as Yup from "yup";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import GoogleLoginButton from "@/components/google-login-button/google-login-button";
+import { useAuth } from "@/context/auth";
+import { signInAuthUserWithEmailAndPassword } from "@/utils/firebase/firebase";
 
 interface SignInParams {
   email: string;
@@ -10,11 +12,34 @@ interface SignInParams {
 }
 
 const SignInForm = () => {
+  const { login } = useAuth();
+
   const handleSignIn = async (
     values: SignInParams,
     actions: FormikHelpers<SignInParams>
   ) => {
-    console.log(values);
+    const { email, password } = values;
+    try {
+      const { user } = (await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      ))!;
+      // rest form
+      actions.resetForm();
+      // add context
+      login(user);
+    } catch (error: any) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorrect password for email");
+          break;
+        case "auth/user-not-found":
+          alert("no user associated with this email");
+          break;
+        default:
+          console.log(error);
+      }
+    }
   };
 
   const initialValues: SignInParams = {

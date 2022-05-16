@@ -4,18 +4,21 @@ import * as Yup from "yup";
 import FormTextInput from "../form-text-input/form-text-input";
 import {
   createAuthUserWithEmailAndPassword,
-  createUserDocument,
+  createUserDocumentFromAuth,
 } from "@/utils/firebase/firebase";
+import { useAuth } from "@/context/auth";
 
 interface SignUpParams {
-  username: string;
+  displayName: string;
   email: string;
   password: string;
   password2: string;
 }
 export default function SignUpForm() {
+  const { login } = useAuth();
+
   const initialValues: SignUpParams = {
-    username: "",
+    displayName: "",
     email: "",
     password: "",
     password2: "",
@@ -25,25 +28,25 @@ export default function SignUpForm() {
     values: SignUpParams,
     actions: FormikHelpers<SignUpParams>
   ) => {
-    const { username, email, password } = values;
+    const { displayName, email, password } = values;
 
     try {
       const { user } = (await createAuthUserWithEmailAndPassword(
         email,
         password
-      )) || { undefined };
+      ))!;
 
-      // const {user} = createRes
+      await createUserDocumentFromAuth(user, { displayName });
 
-      await createUserDocument(user!, { username });
+      login(user);
 
-      // resetform
+      // reset form
       actions.resetForm();
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
       } else {
-        console.log("user creation encountered an error", error);
+        alert(error);
       }
     }
   };
@@ -55,7 +58,7 @@ export default function SignUpForm() {
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object({
-          username: Yup.string()
+          displayName: Yup.string()
             .max(15, "用户名不能超过15个字符")
             .required("用户名不能为空"),
           email: Yup.string().email("邮箱格式错误").required("邮箱不能为空"),
@@ -63,7 +66,7 @@ export default function SignUpForm() {
             .min(6, "密码至少为6位")
             .required("密码不能为空"),
           password2: Yup.string()
-            .min(6, "密码至少为6位")
+            .required("密码不能为空")
             .oneOf([Yup.ref("password"), null], "两次输入的密码不一致"),
         })}
         onSubmit={(values, actions) => handleSignUp(values, actions)}
@@ -72,7 +75,7 @@ export default function SignUpForm() {
           <Form style={{ marginTop: "20px" }}>
             <FormTextInput
               label="User Name"
-              name="username"
+              name="displayName"
               type="text"
             ></FormTextInput>
             <FormTextInput

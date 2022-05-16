@@ -6,6 +6,7 @@ import {
   signInWithRedirect,
   User,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -41,7 +42,10 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore();
 
 /** 创建用户数据 */
-export const createUserDocument = async (userAuth: User, extraData = {}) => {
+export const createUserDocumentFromAuth = async (
+  userAuth: User,
+  extraData = {}
+) => {
   if (!userAuth) return;
   // ref
   const userDocRef = doc(db, "users", userAuth.uid);
@@ -54,16 +58,18 @@ export const createUserDocument = async (userAuth: User, extraData = {}) => {
 
   const { displayName, email } = userAuth;
   const createAt = new Date();
+
   // 存储
   try {
     await setDoc(userDocRef, {
       displayName,
       email,
       createAt,
+      // 用来重置displayName
       ...extraData,
     });
   } catch (err) {
-    console.error(err);
+    return err;
   }
   return userDocRef;
 };
@@ -75,4 +81,12 @@ export const createAuthUserWithEmailAndPassword = async (
 ) => {
   if (!email || !password) return;
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+/** 使用邮箱登录 */
+export const signInAuthUserWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  if (!email || !password) return;
+  return await signInWithEmailAndPassword(auth, email, password);
 };
