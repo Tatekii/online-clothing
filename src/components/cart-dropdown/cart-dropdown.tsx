@@ -1,7 +1,14 @@
 import { Button } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import { useRootStore } from "@/store";
+import { observer } from "mobx-react-lite";
+import CartDropdownList from "./cart-dropdown-list";
 
 const CartDropdown = () => {
+  const { cartIsOpen } = useRootStore("cartStore");
+
+  if (!cartIsOpen) return null; // 未打开直接return
+
   const CartDropdownContainer = styled.div`
     position: absolute;
     width: 240px;
@@ -24,7 +31,7 @@ const CartDropdown = () => {
 
   return (
     <CartDropdownContainer>
-      <div className="cart-items" />
+      <CartDropdownList />
       <Button bg="black" color="white" variant="fill">
         GO TO CHECKOUT
       </Button>
@@ -32,4 +39,4 @@ const CartDropdown = () => {
   );
 };
 
-export default CartDropdown;
+export default observer(CartDropdown);

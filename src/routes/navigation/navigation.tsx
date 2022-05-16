@@ -5,7 +5,6 @@ import { useAuth } from "@/context/auth.context";
 import SignOutButton from "@/components/sign-out-button/sign-out-button";
 import CartIcon from "@/components/cart-icon/cart-icon";
 import CartDropdown from "@/components/cart-dropdown/cart-dropdown";
-import { useCart } from "@/context/cart.context";
 
 const Navigation = () => {
   const Navigator = styled.div`
@@ -41,7 +40,7 @@ const Navigation = () => {
   `;
 
   const { user } = useAuth();
-  const { isCartOpen } = useCart();
+
   return (
     <>
       <Navigator>
@@ -53,7 +52,7 @@ const Navigation = () => {
           {!user ? <NavLink to="/auth">SIGN IN</NavLink> : <SignOutButton />}
           <CartIcon />
         </NavContainer>
-        {isCartOpen && <CartDropdown />}
+        <CartDropdown />
       </Navigator>
 
       {/* router view */}

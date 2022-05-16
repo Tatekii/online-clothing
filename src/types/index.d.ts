@@ -10,3 +10,7 @@ export interface ProductItem {
   imageUrl: string;
   price: number;
 }
+
+export interface ProductItemInCart extends ProductItem {
+  quantity: number;
+}
