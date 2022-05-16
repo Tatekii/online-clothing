@@ -1,25 +1,18 @@
 import { FcGoogle } from "react-icons/fc";
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-} from "@/utils/firebase/firebase";
+import { signInWithGooglePopup } from "@/utils/firebase/firebase";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { useAuth } from "@/context/auth";
 
 const GoogleLoginButton = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
-  const { login } = useAuth();
 
   const loginWithGoogle = async () => {
     return await new Promise(async (resolve, reject) => {
       setGoogleLoading(true);
       try {
-        const { user } = await signInWithGooglePopup();
-        // resolve(login(user))
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
 
-        resolve(login(user));
+        resolve(null);
       } catch (err) {
         reject(err);
       } finally {

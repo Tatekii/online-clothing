@@ -6,7 +6,6 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "@/utils/firebase/firebase";
-import { useAuth } from "@/context/auth";
 
 interface SignUpParams {
   displayName: string;
@@ -15,8 +14,6 @@ interface SignUpParams {
   password2: string;
 }
 export default function SignUpForm() {
-  const { login } = useAuth();
-
   const initialValues: SignUpParams = {
     displayName: "",
     email: "",
@@ -37,9 +34,6 @@ export default function SignUpForm() {
       ))!;
 
       await createUserDocumentFromAuth(user, { displayName });
-
-      login(user);
-
       // reset form
       actions.resetForm();
     } catch (error: any) {

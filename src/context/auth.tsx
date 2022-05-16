@@ -1,25 +1,51 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-import { UserData } from "@/types";
+import {
+  createUserDocumentFromAuth,
+  onAuthStateChangeListener,
+  SignOutAuth,
+} from "@/utils/firebase/firebase";
+import { User } from "firebase/auth";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
+// import { User } from "@/types";
 
 export const AuthContext = createContext<
   | {
-      user: UserData | null;
-      login: (userData: UserData) => void;
+      user: User | null;
       logout: () => void;
     }
   | undefined
 >(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = (userData: UserData) => setUser(userData);
+  // const login = (userData: User) => setUser(userData);
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    SignOutAuth(); // google auth 登出
+  };
+
+  useEffect(() => {
+    // 观察google auth 的状态改变自动添加/移除context
+    const checkAuthState = onAuthStateChangeListener((user) => {
+      if (user) {
+        // 判断是否新建新用户
+        createUserDocumentFromAuth(user);
+      }
+      setUser(user);
+    });
+
+    return checkAuthState;
+  }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout }}
+      value={{ user, logout }}
       children={children}
     ></AuthContext.Provider>
   );

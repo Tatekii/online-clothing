@@ -7,6 +7,10 @@ import {
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  CompleteFn,
+  NextOrObserver,
 } from "firebase/auth";
 
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -51,7 +55,7 @@ export const createUserDocumentFromAuth = async (
   const userDocRef = doc(db, "users", userAuth.uid);
   // snapshot
   const userSnapshot = await getDoc(userDocRef);
-  // 已经存在
+  // 已经存在 return
   if (userSnapshot.exists()) {
     return userDocRef;
   }
@@ -89,4 +93,12 @@ export const signInAuthUserWithEmailAndPassword = async (
 ) => {
   if (!email || !password) return;
   return await signInWithEmailAndPassword(auth, email, password);
+};
+
+/** 登出 */
+export const SignOutAuth = () => signOut(auth);
+
+/** 观测 auth 状态 */
+export const onAuthStateChangeListener = (callback: NextOrObserver<User>) => {
+  onAuthStateChanged(auth, callback);
 };

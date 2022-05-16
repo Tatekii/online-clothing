@@ -1,6 +1,8 @@
 import { Outlet, Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { ReactComponent as CrwnLogo } from "@/assets/crown.svg";
+import { useAuth } from "@/context/auth";
+import SignOutButton from "@/components/sign-out-button/sign-out-button";
 
 const Navigation = () => {
   const Navigator = styled.div`
@@ -29,6 +31,7 @@ const Navigation = () => {
     padding: 0 0 0 15px;
   `;
 
+  const { user } = useAuth();
   return (
     <>
       <Navigator>
@@ -37,7 +40,7 @@ const Navigation = () => {
         </LogoContainer>
         <NavContainer>
           <NavLink to="/shop">SHOP</NavLink>
-          <NavLink to="/sign-in">SIGN IN</NavLink>
+          {user ? <NavLink to="/sign-in">SIGN IN</NavLink> : <SignOutButton />}
         </NavContainer>
       </Navigator>
       <Outlet />
