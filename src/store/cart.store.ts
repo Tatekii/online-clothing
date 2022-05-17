@@ -1,7 +1,7 @@
 import { ProductItem, ProductItemInCart } from "@/types";
-import { action, computed, makeObservable, observable, observe } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 
-class CartItem {
+export class CartItem {
   quantity;
   id;
   name;
@@ -43,15 +43,31 @@ export default class CartStore {
       cartValidItems: computed,
       addToCart: action,
       toggleCartOpen: action,
+      currentTotal: computed,
+      removeFromCart: action,
     });
   }
-  /** 购物车里总数 */
+  /** 购物车项目数量 */
   get cartItemsCount() {
     return this.cartItems.length;
+  }
+  /** 购物车项目总数量 */
+  get cartValidItemsCount() {
+    return this.cartValidItems.reduce((base, cur) => {
+      base += cur.quantity;
+      return base;
+    }, 0);
   }
   /** 购物车有效项目（有数量） */
   get cartValidItems(): CartItem[] {
     return this.cartItems.filter((i: ProductItemInCart) => i.quantity > 0);
+  }
+  /** 当前金额 */
+  get currentTotal() {
+    return this.cartValidItems.reduce((base, cur) => {
+      base += cur.quantity * cur.price;
+      return base;
+    }, 0);
   }
   /** 添加到购物车 */
   addToCart = (item: ProductItem) => {
@@ -63,6 +79,10 @@ export default class CartStore {
     } else {
       inCart.increaseQuantity();
     }
+  };
+  removeFromCart = (item: ProductItem) => {
+    const { id } = item;
+    this.cartItems = this.cartItems.filter((i) => i.id !== id);
   };
   toggleCartOpen = () => {
     this.cartIsOpen = !this.cartIsOpen;

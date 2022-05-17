@@ -1,8 +1,7 @@
-import { Button } from "@chakra-ui/react";
 import { ProductItem } from "@/types";
 import { FC } from "react";
 import styled from "@emotion/styled";
-import { HiOutlineShoppingCart } from "react-icons/hi";
+import ProductCardAddButton from "./product-card-add-button";
 
 const ProductCard: FC<{ product: ProductItem }> = ({ product }) => {
   const { name, price, imageUrl } = product;
@@ -41,14 +40,6 @@ const ProductCard: FC<{ product: ProductItem }> = ({ product }) => {
     font-size: 18px;
   `;
 
-  const ProductButton = styled(Button)`
-    width: 80%;
-    opacity: 0.7;
-    position: absolute;
-    top: 255px;
-    display: none;
-  `;
-
   const ProductName = styled.span`
     width: 90%;
     margin-bottom: 15px;
@@ -64,9 +55,7 @@ const ProductCard: FC<{ product: ProductItem }> = ({ product }) => {
         <ProductName>{name}</ProductName>
         <ProductPrice>{price}</ProductPrice>
       </ProductDetail>
-      <ProductButton rightIcon={<HiOutlineShoppingCart />}>
-        Add to card
-      </ProductButton>
+      <ProductCardAddButton product={product} />
     </ProductCardContainer>
   );
 };
