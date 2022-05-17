@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 import CheckoutItem from "@/components/checkout-item/checkout-item";
 import { observer } from "mobx-react-lite";
 const Checkout = () => {
-  const { cartItems, currentTotal } = useRootStore("cartStore");
+  const { cartItems, currentTotal } = useRootStore().cartStore;
+
   const CheckoutContainer = styled.div`
     width: 55%;
     min-width: 800px;

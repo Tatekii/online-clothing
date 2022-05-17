@@ -1,22 +1,16 @@
-import ProductCard from "@/components/product-card/product-card";
-import { useProduct } from "@/context/product.context";
-import styled from "@emotion/styled";
+import CategoryPreview from "../category-preview/category-preview";
+import { observer } from "mobx-react-lite";
+import { Route, Routes } from "react-router-dom";
+import Category from "../category/category";
 const Shop = () => {
-  const { products } = useProduct();
-
-  const ProductContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
-    row-gap: 50px;
-  `;
   return (
-    <ProductContainer>
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
-    </ProductContainer>
+    <>
+      <Routes>
+        <Route index element={<CategoryPreview />} />
+        <Route path=":category" element={<Category />} />
+      </Routes>
+    </>
   );
 };
 
-export default Shop;
+export default observer(Shop);

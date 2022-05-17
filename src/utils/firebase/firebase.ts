@@ -3,13 +3,11 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
   User,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  CompleteFn,
   NextOrObserver,
 } from "firebase/auth";
 

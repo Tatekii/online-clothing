@@ -6,7 +6,7 @@ import CartDropdownList from "./cart-dropdown-list";
 import { useNavigate } from "react-router-dom";
 
 const CartDropdown = () => {
-  const { cartIsOpen, cartItemsCount } = useRootStore("cartStore");
+  const { cartIsOpen, cartItemsCount } = useRootStore().cartStore;
   const navigate = useNavigate();
 
   // 跳转到结算

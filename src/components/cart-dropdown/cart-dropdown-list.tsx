@@ -2,7 +2,7 @@ import { useRootStore } from "@/store";
 import CartItem from "../cart-item/cart-item";
 import { observer } from "mobx-react-lite";
 const CartDropdownList = () => {
-  const { cartValidItems } = useRootStore("cartStore");
+  const { cartValidItems } = useRootStore().cartStore;
   return (
     <div className="cart-items">
       {cartValidItems.length ? (

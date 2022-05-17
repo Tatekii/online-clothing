@@ -13,6 +13,7 @@ const ProductCard: FC<{ product: ProductItem }> = ({ product }) => {
     height: 350px;
     align-items: center;
     position: relative;
+    justify-content: space-between;
     &:hover {
       img {
         opacity: 0.8;
@@ -27,33 +28,25 @@ const ProductCard: FC<{ product: ProductItem }> = ({ product }) => {
 
   const ProductImg = styled.img`
     width: 100%;
-    height: 95%;
+    height: 320px;
     object-fit: cover;
-    padding-bottom: 5px;
+    /* padding-bottom: 5px; */
   `;
 
   const ProductDetail = styled.div`
     width: 100%;
-    height: 5%;
+    flex: 1;
     display: flex;
     justify-content: space-between;
     font-size: 18px;
   `;
 
-  const ProductName = styled.span`
-    width: 90%;
-    margin-bottom: 15px;
-  `;
-
-  const ProductPrice = styled.span`
-    width: 10%;
-  `;
   return (
     <ProductCardContainer>
       <ProductImg src={imageUrl} alt={`${name}`} />
       <ProductDetail>
-        <ProductName>{name}</ProductName>
-        <ProductPrice>{price}</ProductPrice>
+        <span>{name}</span>
+        <span>{price}</span>
       </ProductDetail>
       <ProductCardAddButton product={product} />
     </ProductCardContainer>

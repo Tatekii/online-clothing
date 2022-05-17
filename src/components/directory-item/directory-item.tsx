@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import { CateItem } from "@/types";
 
-interface CategoryItemProps {
+interface DirectoryItemProps {
   category: CateItem;
 }
-const CategoryItem = ({ category }: CategoryItemProps) => {
+const DirectoryItem = ({ category }: DirectoryItemProps) => {
   const { imageUrl, title } = category;
 
   const BackgroundImage = styled.div`
@@ -37,7 +37,7 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
     }
   `;
 
-  const CategoryItemContainer = styled.div`
+  const DirectoryItemContainer = styled.div`
     min-width: 30%;
     height: 240px;
     flex: 1 1 auto;
@@ -63,7 +63,7 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
   `;
 
   return (
-    <CategoryItemContainer>
+    <DirectoryItemContainer>
       <BackgroundImage
         style={{
           backgroundImage: `url(${imageUrl})`,
@@ -73,8 +73,8 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
         <h2>{title}</h2>
         <p>Shop Now</p>
       </ItemBody>
-    </CategoryItemContainer>
+    </DirectoryItemContainer>
   );
 };
 
-export default CategoryItem;
+export default DirectoryItem;

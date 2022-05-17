@@ -4,12 +4,13 @@ import * as Yup from "yup";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import GoogleLoginButton from "@/components/google-login-button/google-login-button";
 import { signInAuthUserWithEmailAndPassword } from "@/utils/firebase/firebase";
-
 interface SignInParams {
   email: string;
   password: string;
 }
-
+/**
+ * 邮箱密码登录
+ */
 const SignInForm = () => {
   const handleSignIn = async (
     values: SignInParams,

@@ -4,7 +4,7 @@ import { useRootStore } from "@/store";
 import CartIconCount from "./cart-icon-count";
 
 const CartIcon = () => {
-  const { toggleCartOpen } = useRootStore("cartStore");
+  const { toggleCartOpen } = useRootStore().cartStore;
 
   const CartIconContainer = styled.div`
     width: 50px;

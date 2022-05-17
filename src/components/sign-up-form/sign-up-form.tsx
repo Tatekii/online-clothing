@@ -21,7 +21,6 @@ export default function SignUpForm() {
     password: "",
     password2: "",
   };
-
   const { login } = useAuth();
   const handleSignUp = async (
     values: SignUpParams,

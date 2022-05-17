@@ -1,10 +1,13 @@
 import { useContext, createContext, ReactNode } from "react";
 import CartStore from "./cart.store";
+import CategoryStore from "./category.store";
 
 class RootStore {
-  cartStore;
+  readonly cartStore: CartStore;
+  readonly categoryStore: CategoryStore;
   constructor() {
     this.cartStore = new CartStore();
+    this.categoryStore = new CategoryStore();
   }
 }
 
@@ -20,10 +23,10 @@ export const RootStoreProvider = ({ children }: { children: ReactNode }) => {
 };
 
 // root store hook
-export const useRootStore = (storeName: keyof RootStore) => {
+export const useRootStore = () => {
   const context = useContext(RootStoreContext);
   if (!context) {
     throw new Error("use context in your provider!");
   }
-  return context[storeName];
+  return context;
 };

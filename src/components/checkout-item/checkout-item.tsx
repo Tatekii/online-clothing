@@ -16,7 +16,7 @@ const CheckoutItem: FC<{ cartItem: CartItem }> = ({ cartItem }) => {
     decreaseQuantity,
   } = cartItem;
 
-  const { removeFromCart } = useRootStore("cartStore");
+  const { removeFromCart } = useRootStore().cartStore;
 
   const removeItemHandler = () => decreaseQuantity();
   const addItemHandler = () => increaseQuantity();

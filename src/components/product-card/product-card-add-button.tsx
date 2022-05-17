@@ -5,7 +5,7 @@ import { useRootStore } from "@/store/index";
 import { ProductItem } from "@/types";
 
 const ProductCardAddButton = ({ product }: { product: ProductItem }) => {
-  const { addToCart } = useRootStore("cartStore");
+  const { addToCart } = useRootStore().cartStore;
   const handleAddToCart = () => addToCart(product);
   const ProductButton = styled(Button)`
     width: 80%;
