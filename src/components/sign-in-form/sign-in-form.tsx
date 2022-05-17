@@ -12,6 +12,7 @@ interface SignInParams {
  * 邮箱密码登录
  */
 const SignInForm = () => {
+  /** 处理登录逻辑 */
   const handleSignIn = async (
     values: SignInParams,
     actions: FormikHelpers<SignInParams>
@@ -22,16 +23,7 @@ const SignInForm = () => {
       // rest form
       actions.resetForm();
     } catch (error: any) {
-      switch (error.code) {
-        case "auth/wrong-password":
-          alert("incorrect password for email");
-          break;
-        case "auth/user-not-found":
-          alert("no user associated with this email");
-          break;
-        default:
-          console.log(error);
-      }
+      console.log(error);
     }
   };
 

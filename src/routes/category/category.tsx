@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ProductCard from "@/components/product-card/product-card";
 import { useRootStore } from "@/store";
 import styled from "@emotion/styled";
+import { Heading } from "@chakra-ui/react";
 
 const Category = () => {
   const { category } = useParams();
@@ -13,9 +14,7 @@ const Category = () => {
     setProducts(categories[category!]);
   }, [category, categories]);
 
-  const CategoryTitle = styled.h2`
-    font-size: 38px;
-    margin-bottom: 25px;
+  const CategoryTitle = styled(Heading)`
     text-align: center;
   `;
   const CategoryContainer = styled.div`

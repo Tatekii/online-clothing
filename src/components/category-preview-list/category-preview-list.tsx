@@ -1,9 +1,12 @@
 import ProductCard from "../product-card/product-card";
-import styled from "@emotion/styled";
 import { ProductItem } from "@/types";
 import { FC } from "react";
 import { Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import {
+  CategoryPreviewContainer,
+  Preview,
+} from "./category-preview-list.styles";
 
 /**
  *  分类预览组件
@@ -13,17 +16,6 @@ const CategoryPreviewList: FC<{
   title: string;
   products: ProductItem[];
 }> = ({ title, products }) => {
-  const CategoryPreviewContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-  `;
-
-  const Preview = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 20px;
-  `;
   return (
     <CategoryPreviewContainer>
       <Heading>

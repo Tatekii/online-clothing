@@ -1,18 +1,21 @@
 import { useRootStore } from "@/store";
 import CartItem from "../cart-item/cart-item";
 import { observer } from "mobx-react-lite";
+import { CartItems, EmptyMessage } from "./cart-dropdown-list.styles";
+
 const CartDropdownList = () => {
-  const { cartValidItems } = useRootStore().cartStore;
+  const { cartItems } = useRootStore().cartStore;
+
   return (
-    <div className="cart-items">
-      {cartValidItems.length ? (
-        cartValidItems.map((cartItem) => (
+    <CartItems>
+      {cartItems.length ? (
+        cartItems.map((cartItem) => (
           <CartItem key={cartItem.id} cartItem={cartItem} />
         ))
       ) : (
-        <span className="empty-message">Your cart is empty</span>
+        <EmptyMessage>Your cart is empty</EmptyMessage>
       )}
-    </div>
+    </CartItems>
   );
 };
 export default observer(CartDropdownList);

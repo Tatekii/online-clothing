@@ -4,6 +4,10 @@ export interface CateItem {
   imageUrl: string;
 }
 
+export interface DirectCateItem extends CateItem {
+  route: string;
+}
+
 export interface ProductItem {
   id: number;
   name: string;

@@ -1,4 +1,4 @@
-import { ProductItem, ProductItemInCart } from "@/types";
+import { ProductItem } from "@/types";
 import { action, computed, makeObservable, observable } from "mobx";
 
 export class CartItem {
@@ -7,12 +7,14 @@ export class CartItem {
   name;
   imageUrl;
   price;
-  constructor(item: ProductItem) {
+  rootCart;
+  constructor(item: ProductItem, rootCart: CartStore) {
     this.quantity = 1;
     this.id = item.id;
     this.name = item.name;
     this.imageUrl = item.imageUrl;
     this.price = item.price;
+    this.rootCart = rootCart;
     makeObservable(this, {
       quantity: observable,
       increaseQuantity: action,
@@ -24,7 +26,10 @@ export class CartItem {
     this.quantity++;
   };
   decreaseQuantity = () => {
-    if (this.quantity > 0) this.quantity--;
+    // 如果减少到0 ，从store中删除
+
+    if (this.quantity > 1) this.quantity--;
+    else this.rootCart.removeFromCart(this);
   };
   setQuantity = (n: number) => {
     this.quantity = n;
@@ -40,31 +45,22 @@ export default class CartStore {
     makeObservable(this, {
       cartItems: observable,
       cartIsOpen: observable,
-      cartValidItems: computed,
       addToCart: action,
       toggleCartOpen: action,
       currentTotal: computed,
       removeFromCart: action,
     });
   }
-  /** 购物车项目数量 */
-  get cartItemsCount() {
-    return this.cartItems.length;
-  }
   /** 购物车项目总数量 */
-  get cartValidItemsCount() {
-    return this.cartValidItems.reduce((base, cur) => {
+  get cartItemsCount() {
+    return this.cartItems.reduce((base, cur) => {
       base += cur.quantity;
       return base;
     }, 0);
   }
-  /** 购物车有效项目（有数量） */
-  get cartValidItems(): CartItem[] {
-    return this.cartItems.filter((i: ProductItemInCart) => i.quantity > 0);
-  }
   /** 当前金额 */
   get currentTotal() {
-    return this.cartValidItems.reduce((base, cur) => {
+    return this.cartItems.reduce((base, cur) => {
       base += cur.quantity * cur.price;
       return base;
     }, 0);
@@ -75,7 +71,7 @@ export default class CartStore {
     const { id } = item;
     const inCart = this.cartItems.find((i) => i.id === id);
     if (!inCart) {
-      this.cartItems.push(new CartItem(item));
+      this.cartItems.push(new CartItem(item, this));
     } else {
       inCart.increaseQuantity();
     }
