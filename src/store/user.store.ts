@@ -12,7 +12,7 @@ export default class UserStore {
     this.user = null;
     makeObservable(this, {
       user: observable,
-      login: action,
+      SET_CURRENT_USER: action,
       logout: action,
     });
     // 登记auth 监听
@@ -21,10 +21,10 @@ export default class UserStore {
         // 判断是否新建新用户
         createUserDocumentFromAuth(user);
       }
-      this.login(user);
+      this.SET_CURRENT_USER(user);
     });
   }
-  login = (user: User | null) => {
+  SET_CURRENT_USER = (user: User | null) => {
     this.user = user;
   };
   logout = () => SignOutAuth();

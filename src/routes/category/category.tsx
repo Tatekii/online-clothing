@@ -5,6 +5,7 @@ import { useCategoryStore } from "@/store";
 import styled from "@emotion/styled";
 import { Heading } from "@chakra-ui/react";
 import { ProductItem } from "@/types";
+import { observer } from "mobx-react-lite";
 
 const Category = () => {
   const { category } = useParams();
@@ -13,8 +14,6 @@ const Category = () => {
   const [products, setProducts] = useState<ProductItem[]>([]);
 
   useEffect(() => {
-    console.log("effect", category, categoriesMap[category!]);
-
     setProducts(categoriesMap[category!]);
   }, [category, categoriesMap]);
 
@@ -41,4 +40,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default observer(Category);

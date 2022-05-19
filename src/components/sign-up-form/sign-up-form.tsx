@@ -21,7 +21,7 @@ export default function SignUpForm() {
     password: "",
     password2: "",
   };
-  const { login } = useUserStore();
+  const { SET_CURRENT_USER } = useUserStore();
   const handleSignUp = async (
     values: SignUpParams,
     actions: FormikHelpers<SignUpParams>
@@ -41,7 +41,7 @@ export default function SignUpForm() {
       // reset form
       actions.resetForm();
       // context
-      login(user);
+      SET_CURRENT_USER(user);
     } catch (error: any) {
       if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");

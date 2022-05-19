@@ -1,5 +1,6 @@
 import CategoryPreviewList from "@/components/category-preview-list/category-preview-list";
 import { useCategoryStore } from "@/store";
+import { observer } from "mobx-react-lite";
 
 const CategoriesPreview = () => {
   const { categoriesMap } = useCategoryStore();
@@ -16,4 +17,4 @@ const CategoriesPreview = () => {
   );
 };
 
-export default CategoriesPreview;
+export default observer(CategoriesPreview);

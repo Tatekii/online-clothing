@@ -1,5 +1,11 @@
 import { ProductCategory, ProductItem } from "@/types";
-import { action, computed, makeObservable, observable } from "mobx";
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
 import { getCategoriesAndDocuments } from "@/utils/firebase/firebase.collection";
 
 export default class CategoryStore {
@@ -11,11 +17,13 @@ export default class CategoryStore {
       loadCategoryData: action,
       categoriesMap: computed,
     });
-    // 页面不需要时先不执行 this.loadCategoryData();
   }
   /** 加载商品分类数据 */
   loadCategoryData = async () => {
-    this.categories = await getCategoriesAndDocuments();
+    const _new = await getCategoriesAndDocuments();
+    runInAction(() => {
+      this.categories = _new;
+    });
   };
 
   get categoriesMap(): {
