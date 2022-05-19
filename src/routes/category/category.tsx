@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ProductCard from "@/components/product-card/product-card";
-import { useRootStore } from "@/store";
+import { useCategoryStore } from "@/store";
 import styled from "@emotion/styled";
 import { Heading } from "@chakra-ui/react";
+import { ProductItem } from "@/types";
 
 const Category = () => {
   const { category } = useParams();
-  const { categories } = useRootStore().categoryStore;
-  const [products, setProducts] = useState(categories[category!]);
+  const { categoriesMap } = useCategoryStore();
+
+  const [products, setProducts] = useState<ProductItem[]>([]);
 
   useEffect(() => {
-    setProducts(categories[category!]);
-  }, [category, categories]);
+    console.log("effect", category, categoriesMap[category!]);
+
+    setProducts(categoriesMap[category!]);
+  }, [category, categoriesMap]);
 
   const CategoryTitle = styled(Heading)`
     text-align: center;

@@ -6,7 +6,7 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "@/utils/firebase/firebase";
-import { useAuth } from "@/context/auth.context";
+import { useUserStore } from "@/store";
 
 interface SignUpParams {
   displayName: string;
@@ -21,7 +21,7 @@ export default function SignUpForm() {
     password: "",
     password2: "",
   };
-  const { login } = useAuth();
+  const { login } = useUserStore();
   const handleSignUp = async (
     values: SignUpParams,
     actions: FormikHelpers<SignUpParams>

@@ -1,12 +1,12 @@
 import { Button } from "@chakra-ui/react";
-import { useRootStore } from "@/store";
+import { useCartStore } from "@/store";
 import { observer } from "mobx-react-lite";
 import CartDropdownList from "./cart-dropdown-list";
 import { useNavigate } from "react-router-dom";
 import { CartDropdownContainer } from "./cart-dropdown.styles";
 
 const CartDropdown = () => {
-  const { cartIsOpen, cartItemsCount } = useRootStore().cartStore;
+  const { cartIsOpen, cartItemsCount } = useCartStore();
   const navigate = useNavigate();
 
   // 跳转到结算

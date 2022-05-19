@@ -1,7 +1,7 @@
 import { CartItem } from "@/store/cart.store";
 import { FC } from "react";
 import { observer } from "mobx-react-lite";
-import { useRootStore } from "@/store";
+import { useCartStore } from "@/store";
 import { IconButton } from "@chakra-ui/react";
 import { GrClose } from "react-icons/gr";
 import { CartItemContainer, ImgContainer } from "./checkout-item.styles";
@@ -16,7 +16,7 @@ const CheckoutItem: FC<{ cartItem: CartItem }> = ({ cartItem }) => {
     decreaseQuantity,
   } = cartItem;
 
-  const { removeFromCart } = useRootStore().cartStore;
+  const { removeFromCart } = useCartStore();
 
   const removeItemHandler = () => decreaseQuantity();
   const addItemHandler = () => increaseQuantity();

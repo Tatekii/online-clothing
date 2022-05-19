@@ -1,10 +1,10 @@
 import { ReactComponent as Cart } from "@/assets/cart.svg";
 import styled from "@emotion/styled";
-import { useRootStore } from "@/store";
+import { useCartStore } from "@/store";
 import CartIconCount from "./cart-icon-count";
 
 const CartIcon = () => {
-  const { toggleCartOpen } = useRootStore().cartStore;
+  const { toggleCartOpen } = useCartStore();
 
   const CartIconContainer = styled.div`
     width: 50px;

@@ -1,6 +1,7 @@
 import { ProductCategory } from "@/types";
 import {
   collection,
+  CollectionReference,
   doc,
   getDocs,
   query,
@@ -26,15 +27,19 @@ export const addCollectionAndDocument = async (
 
 /** 获取商品&分类数据 */
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
+  const collectionRef = collection(
+    db,
+    "categories"
+  ) as CollectionReference<ProductCategory>;
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);
-  const categoryMap = querySnapshot.docs.reduce((acc: any, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
+  // const categoryMap = querySnapshot.docs.reduce((acc: any, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
 
-  return categoryMap;
+  // return categoryMap;
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };

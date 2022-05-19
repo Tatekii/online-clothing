@@ -1,10 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { ReactComponent as CrwnLogo } from "@/assets/crown.svg";
-import { useAuth } from "@/context/auth.context";
-import SignOutButton from "@/components/sign-out-button/sign-out-button";
 import CartIcon from "@/components/cart-icon/cart-icon";
 import CartDropdown from "@/components/cart-dropdown/cart-dropdown";
+import AuthButton from "@/components/auth-button/auth-button";
 
 const Navigation = () => {
   const Navigator = styled.div`
@@ -39,8 +38,6 @@ const Navigation = () => {
     padding: 0 40px;
   `;
 
-  const { user } = useAuth();
-
   return (
     <>
       <Navigator>
@@ -49,7 +46,7 @@ const Navigation = () => {
         </LogoContainer>
         <NavContainer>
           <NavLink to="/shop">SHOP</NavLink>
-          {!user ? <NavLink to="/auth">SIGN IN</NavLink> : <SignOutButton />}
+          <AuthButton />
           <CartIcon />
         </NavContainer>
         <CartDropdown />

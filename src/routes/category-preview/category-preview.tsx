@@ -1,13 +1,13 @@
 import CategoryPreviewList from "@/components/category-preview-list/category-preview-list";
-import { useRootStore } from "@/store";
+import { useCategoryStore } from "@/store";
 
 const CategoriesPreview = () => {
-  const { categories } = useRootStore().categoryStore;
+  const { categoriesMap } = useCategoryStore();
 
   return (
     <>
-      {Object.keys(categories).map((title) => {
-        const products = categories[title];
+      {Object.keys(categoriesMap).map((title) => {
+        const products = categoriesMap[title];
         return (
           <CategoryPreviewList key={title} title={title} products={products} />
         );
