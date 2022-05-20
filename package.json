@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.6.4",
     "@chakra-ui/react": "^2.0.0",
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
@@ -21,6 +22,7 @@
     "firebase": "^9.8.1",
     "formik": "^2.2.9",
     "framer-motion": "^6",
+    "graphql": "^16.5.0",
     "mobx": "^6.5.0",
     "mobx-react-lite": "^3.4.0",
     "react": "^18.1.0",

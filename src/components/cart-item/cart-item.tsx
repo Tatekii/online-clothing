@@ -1,5 +1,6 @@
 import { ProductItem } from "@/types";
-import { FC, memo } from "react";
+import { FC } from "react";
+import { observer } from "mobx-react-lite";
 import {
   CartItemContainer,
   CartItemDetail,
@@ -28,4 +29,4 @@ const CartItem: FC<CartItemProps> = ({ cartItem }) => {
   );
 };
 
-export default memo(CartItem);
+export default observer(CartItem);
