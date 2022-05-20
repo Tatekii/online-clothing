@@ -29,9 +29,9 @@ export default class CategoryStore {
   get categoriesMap(): {
     [x: string]: ProductItem[];
   } {
-    return this.categories.reduce((acc: any, docSnapshot) => {
+    return this.categories.reduce((acc, docSnapshot) => {
       const { title, items } = docSnapshot;
-      acc[title.toLowerCase()] = items;
+      Reflect.set(acc, title.toLowerCase(), items);
       return acc;
     }, {});
   }

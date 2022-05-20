@@ -1,3 +1,4 @@
+import { recoveryCartStore } from "@/utils/mobx/mbox.utils";
 import { useContext, createContext, ReactNode } from "react";
 import CartStore from "./cart.store";
 import CategoryStore from "./category.store";
@@ -16,8 +17,11 @@ class RootStore {
 
 const RootStoreContext = createContext<RootStore | undefined>(undefined);
 
+export const rootStore = new RootStore();
+// 创建时检查一遍本地购物车缓存？
+recoveryCartStore();
+
 export const RootStoreProvider = ({ children }: { children: ReactNode }) => {
-  const rootStore = new RootStore();
   return (
     <RootStoreContext.Provider value={rootStore}>
       {children}

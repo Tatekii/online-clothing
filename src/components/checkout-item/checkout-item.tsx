@@ -18,8 +18,14 @@ const CheckoutItem: FC<{ cartItem: CartItem }> = ({ cartItem }) => {
 
   const { removeFromCart } = useCartStore();
 
-  const removeItemHandler = () => decreaseQuantity();
-  const addItemHandler = () => increaseQuantity();
+  const decreaseItemHandler = () => {
+    if (quantity <= 1) {
+      removeFromCart(cartItem);
+    } else {
+      decreaseQuantity();
+    }
+  };
+  const increaseItemHandler = () => increaseQuantity();
   const clearItemHandler = () => removeFromCart(cartItem);
 
   return (
@@ -29,11 +35,11 @@ const CheckoutItem: FC<{ cartItem: CartItem }> = ({ cartItem }) => {
       </ImgContainer>
       <span className="name"> {name} </span>
       <span className="quantity">
-        <div className="arrow" onClick={removeItemHandler}>
+        <div className="arrow" onClick={decreaseItemHandler}>
           &#10094;
         </div>
         <span className="value">{quantity}</span>
-        <div className="arrow" onClick={addItemHandler}>
+        <div className="arrow" onClick={increaseItemHandler}>
           &#10095;
         </div>
       </span>

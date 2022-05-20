@@ -1,5 +1,6 @@
-import { ProductItem } from "@/types";
-import { action, computed, makeObservable, observable } from "mobx";
+import { ProductItem, ProductItemInCart } from "@/types";
+import { presistCartStore } from "@/utils/mobx/mbox.utils";
+import { action, reaction, computed, makeObservable, observable } from "mobx";
 
 export class CartItem {
   quantity;
@@ -7,29 +8,32 @@ export class CartItem {
   name;
   imageUrl;
   price;
-  rootCart;
-  constructor(item: ProductItem, rootCart: CartStore) {
-    this.quantity = 1;
+  constructor(item: ProductItemInCart) {
+    this.quantity = item.quantity;
     this.id = item.id;
     this.name = item.name;
     this.imageUrl = item.imageUrl;
     this.price = item.price;
-    this.rootCart = rootCart;
     makeObservable(this, {
       quantity: observable,
       increaseQuantity: action,
       decreaseQuantity: action,
       setQuantity: action,
     });
+    // 监听商品数量变化
+    reaction(
+      () => this.quantity,
+      () => {
+        presistCartStore();
+      }
+    );
   }
   increaseQuantity = () => {
     this.quantity++;
   };
   decreaseQuantity = () => {
     // 如果减少到0 ，从store中删除
-
     if (this.quantity > 1) this.quantity--;
-    else this.rootCart.removeFromCart(this);
   };
   setQuantity = (n: number) => {
     this.quantity = n;
@@ -49,7 +53,15 @@ export default class CartStore {
       toggleCartOpen: action,
       currentTotal: computed,
       removeFromCart: action,
+      recoveryFormLocal: action,
     });
+    // 监听购物车内商品种类变化
+    reaction(
+      () => this.cartItems,
+      () => {
+        presistCartStore();
+      }
+    );
   }
   /** 购物车项目总数量 */
   get cartItemsCount() {
@@ -71,7 +83,11 @@ export default class CartStore {
     const { id } = item;
     const inCart = this.cartItems.find((i) => i.id === id);
     if (!inCart) {
-      this.cartItems.push(new CartItem(item, this));
+      this.cartItems = [
+        ...this.cartItems,
+        new CartItem({ ...item, quantity: 1 }),
+      ];
+      // this.cartItems.push(new CartItem({ ...item, quantity: 1 }));
     } else {
       inCart.increaseQuantity();
     }
@@ -82,5 +98,9 @@ export default class CartStore {
   };
   toggleCartOpen = () => {
     this.cartIsOpen = !this.cartIsOpen;
+  };
+  //** 恢复store的action */
+  recoveryFormLocal = (source: ProductItemInCart[]) => {
+    this.cartItems = source.map((c) => new CartItem(c));
   };
 }
