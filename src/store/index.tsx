@@ -1,4 +1,4 @@
-import { recoveryCartStore } from "@/utils/mobx/mbox.utils";
+import { recoveryCartStore } from "@/utils/mobx/mobx.utils";
 import { useContext, createContext, ReactNode } from "react";
 import CartStore from "./cart.store";
 import CategoryStore from "./category.store";

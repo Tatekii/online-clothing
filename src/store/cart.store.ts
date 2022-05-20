@@ -1,5 +1,5 @@
 import { ProductItem, ProductItemInCart } from "@/types";
-import { presistCartStore } from "@/utils/mobx/mbox.utils";
+import { presistCartStore } from "@/utils/mobx/mobx.utils";
 import { action, reaction, computed, makeObservable, observable } from "mobx";
 
 export class CartItem {
@@ -54,6 +54,7 @@ export default class CartStore {
       currentTotal: computed,
       removeFromCart: action,
       recoveryFormLocal: action,
+      closeCartOpen: action,
     });
     // 监听购物车内商品种类变化
     reaction(
@@ -98,6 +99,9 @@ export default class CartStore {
   };
   toggleCartOpen = () => {
     this.cartIsOpen = !this.cartIsOpen;
+  };
+  closeCartOpen = () => {
+    this.cartIsOpen = false;
   };
   //** 恢复store的action */
   recoveryFormLocal = (source: ProductItemInCart[]) => {

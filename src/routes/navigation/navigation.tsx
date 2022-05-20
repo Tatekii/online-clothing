@@ -34,7 +34,8 @@ const Navigation = () => {
   `;
 
   const RouterView = styled.div`
-    min-height: calc(100vh - 70px);
+    height: calc(100vh - 70px);
+    overflow: auto;
     padding: 0 40px;
   `;
 
@@ -54,7 +55,7 @@ const Navigation = () => {
 
       {/* router view */}
 
-      <RouterView className="router_view">
+      <RouterView>
         <Outlet />
       </RouterView>
     </>
