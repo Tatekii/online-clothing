@@ -39,6 +39,7 @@ export const DirectoryItemContainer = styled.div`
   justify-content: center;
   border: 1px solid black;
   overflow: hidden;
+  position: relative;
   &:hover {
     cursor: pointer;
     /* 使用@emotion/babel-plugin */
@@ -52,5 +53,8 @@ export const DirectoryItemContainer = styled.div`
   }
   .large {
     height: 380px;
+  }
+  @media screen and (max-width: 800px) {
+    height: 180px;
   }
 `;

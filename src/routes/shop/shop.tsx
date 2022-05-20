@@ -4,7 +4,7 @@ import Category from "../category/category";
 import { useCategoryStore } from "@/store";
 import useMount from "@/hooks/useMount";
 import { observer } from "mobx-react-lite";
-import { Spinner } from "@chakra-ui/react";
+// import { Spinner } from "@chakra-ui/react";
 const Shop = () => {
   // 到shop页面才请求商品数据
   const { loadCategoryData } = useCategoryStore();

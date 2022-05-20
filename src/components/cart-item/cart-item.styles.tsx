@@ -5,6 +5,7 @@ export const CartItemContainer = styled.div`
   display: flex;
   height: 80px;
   margin-bottom: 15px;
+  font-size: 0.9em;
 `;
 
 export const CartItemImg = styled.img`

@@ -45,6 +45,10 @@ const Directory = () => {
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 12.5px;
+    @media screen and (max-width: 800px) {
+      display: flex;
+      flex-direction: column;
+    }
   `;
 
   return (

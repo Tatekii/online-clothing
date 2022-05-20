@@ -19,7 +19,7 @@ const CategoryPreviewList: FC<{
   return (
     <CategoryPreviewContainer>
       <Heading>
-        <Link to={title}> {title.toUpperCase()}</Link>
+        <Link to={title}> {title.toUpperCase() + `>>>`} </Link>
       </Heading>
       <Preview>
         {products

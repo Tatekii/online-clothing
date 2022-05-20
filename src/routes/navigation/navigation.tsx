@@ -13,6 +13,9 @@ const Navigation = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: 800px) {
+      padding: 0 10px;
+    }
   `;
 
   const NavContainer = styled.div`
@@ -37,6 +40,9 @@ const Navigation = () => {
     height: calc(100vh - 70px);
     overflow: auto;
     padding: 0 40px;
+    @media screen and (max-width: 800px) {
+      padding: 0 10px;
+    }
   `;
 
   return (

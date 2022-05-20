@@ -3,11 +3,11 @@ import Navigation from "./routes/navigation/navigation";
 import React, { Suspense } from "react";
 import Spinner from "./components/spinner/spinner";
 
-const Home = React.lazy(() => import("./routes/home/home"));
+const Home = React.lazy(() => import("@/routes/home/home"));
 const Shop = React.lazy(() => import("@/routes/shop/shop"));
 const Checkout = React.lazy(() => import("@/routes/checkout/checkout"));
 const Authentication = React.lazy(
-  () => import("./routes/authentication/authentication")
+  () => import("@/routes/authentication/authentication")
 );
 const App = () => {
   return (
