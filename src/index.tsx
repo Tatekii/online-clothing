@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RootStoreProvider } from "./store";
-// import { GQLClient } from "./apollo/apollo";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,13 +13,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Router>
-      {/* <GQLClient> */}
       <ChakraProvider>
         <RootStoreProvider>
           <App />
         </RootStoreProvider>
       </ChakraProvider>
-      {/* </GQLClient> */}
     </Router>
   </React.StrictMode>
 );
