@@ -1,4 +1,4 @@
-import { ProductCategory } from "@/types";
+import { Category } from "@/store/categories/categories.types";
 import {
   collection,
   CollectionReference,
@@ -11,7 +11,7 @@ import { db } from "./firebase";
 
 export const addCollectionAndDocument = async (
   collectionKey: string,
-  payload: ProductCategory[]
+  payload: Category[]
 ) => {
   const collectionRef = collection(db, collectionKey);
   const batch = writeBatch(db);
@@ -30,7 +30,7 @@ export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(
     db,
     "categories"
-  ) as CollectionReference<ProductCategory>;
+  ) as CollectionReference<Category>;
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);

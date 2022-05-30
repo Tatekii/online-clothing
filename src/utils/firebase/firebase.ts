@@ -11,7 +11,16 @@ import {
   NextOrObserver,
 } from "firebase/auth";
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  QueryDocumentSnapshot,
+} from "firebase/firestore";
+import { UserData } from "./firebase.types";
+
+export { type UserData, type AdditionalInformation } from "./firebase.types";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC3roePTbw0On56rzS8HKZwoUn10_EWbl8",
@@ -22,7 +31,7 @@ const firebaseConfig = {
   appId: "1:33925676901:web:d5f1e23551d732973e6b8c",
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -52,7 +61,9 @@ export const createUserDocumentFromAuth = async (
   // ref
   const userDocRef = doc(db, "users", userAuth.uid);
   // snapshot
-  const userSnapshot = await getDoc(userDocRef);
+  const userSnapshot = (await getDoc(
+    userDocRef
+  )) as QueryDocumentSnapshot<UserData>;
   // 已经存在 return
   if (userSnapshot.exists()) {
     return userDocRef;
@@ -99,4 +110,17 @@ export const SignOutAuth = () => signOut(auth);
 /** 观测 auth 状态 */
 export const onAuthStateChangeListener = (callback: NextOrObserver<User>) => {
   onAuthStateChanged(auth, callback);
+};
+
+export const getCurrentUser = (): Promise<User | null> => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject
+    );
+  });
 };
